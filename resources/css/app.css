@@ -10,3 +10,6 @@
 .collapse.mb-3 {
   visibility: visible;
 }
+.obra-entradas .collapse {
+    visibility: visible;
+}
