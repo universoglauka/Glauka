@@ -1,0 +1,31 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Genre;
+
+class GenreSeeder extends Seeder
+{
+  /**
+   * Run the database seeds.
+   */
+  public function run(): void
+  {
+    $generos = [
+      'Drama',
+      'Comedia',
+      'Tragedia',
+      'Musical',
+      'Ópera',
+      'Suspenso',
+      'Monólogo',
+      'Tragicomedia'
+    ];
+
+    foreach ($generos as $genero) {
+      Genre::firstOrCreate(['name' => $genero]);
+    }
+  }
+}
