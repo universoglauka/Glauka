@@ -60,11 +60,11 @@ class MercadoPagoController extends Controller
         $items,
         "cart_" . $carrito->id
       );
-    } catch (\MercadoPago\Exceptions\MPApiException $e) {
+    } catch (\Throwable $e) {
       dd([
         'message' => $e->getMessage(),
-        'status'  => $e->getApiResponse()->getStatusCode(),
-        'content' => $e->getApiResponse()->getContent(),
+        'file' => $e->getFile(),
+        'line' => $e->getLine(),
       ]);
     }
 
