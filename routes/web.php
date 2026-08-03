@@ -31,6 +31,7 @@ Route::get('/inicio', [HomeController::class, 'index'])->middleware(['auth', 've
 Route::get('/catalogo', [CatalogController::class, 'catalog'])->name('catalog');
 
 Route::resource('/grupos-de-ensayo', AnnouncementController::class)->names('announcements')->parameters(['grupos-de-ensayo' => 'announcement',]);
+Route::post('/webhook/mercadopago', [MercadoPagoController::class, 'webhook'])->name('webhook.mp');
 
 Route::middleware('auth')->group(function () {
   Route::get('/perfil', [ProfileController::class, 'index'])->name('profile');
@@ -56,7 +57,6 @@ Route::middleware('auth')->group(function () {
   Route::get('/pagos/success', [MercadoPagoController::class, 'success'])->name('pagos.success');
   Route::get('/pagos/pending', [MercadoPagoController::class, 'pending'])->name('pagos.pending');
   Route::get('/pagos/failure', [MercadoPagoController::class, 'failure'])->name('pagos.failure');
-  Route::post('/webhook/mercadopago', [MercadoPagoController::class, 'webhook'])->name('webhook.mp');
 
   Route::resource('/obras', ObraController::class)->middleware(['productor'])->except(['show']);
   Route::get('/obras/{obra}', [ObraController::class, 'show'])->name('obras.show');
