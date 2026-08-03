@@ -103,7 +103,7 @@
     <!-- Responsive Settings Options -->
     <div class="pt-4 pb-1 border-t border-gray-200">
       <div class="navigationLinks my-2 space-y-1">
-        <x-responsive-nav-link :href="route('profile.edit')">
+        <x-responsive-nav-link :href="route('profile')">
           {{ __('Perfil') }}
         </x-responsive-nav-link>
 
