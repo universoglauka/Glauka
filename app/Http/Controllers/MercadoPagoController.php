@@ -135,7 +135,7 @@ class MercadoPagoController extends Controller
   {
     $paymentId = $request->payment_id;
 
-    return  redirect()->route('home')->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
+    return  redirect()->route('profile.index')->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
 
   }
 
@@ -151,12 +151,7 @@ class MercadoPagoController extends Controller
 
   public function webhook(Request $request)
   {
-    //   file_put_contents(
-    // storage_path('app/webhook.txt'),
-    // json_encode($request->all(), JSON_PRETTY_PRINT) . PHP_EOL,
-    // FILE_APPEND
-    // );
-    
+   
     $paymentId = $request->input('data.id');
 
     // if (!$paymentId) {
