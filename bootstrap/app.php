@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'productor' => ObraProductorMiddleware::class,
             'admin' => AdminMiddleware::class,
         ]);
+         $middleware->validateCsrfTokens(except: [
+            'webhook/mercadopago',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
