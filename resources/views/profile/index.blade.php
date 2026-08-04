@@ -524,7 +524,7 @@
                       </p>
                       <div class="small text-muted">
                         @foreach($obra->performance as $funcion)
-                        {{ \Carbon\Carbon::parse($funcion->fechaObra)->format('d/m/Y') }}
+                        <small><span class="fw-bold"> {{ \Carbon\Carbon::parse($funcion->fechaObra)->format('d/m/Y') }} </span></small>
                         @endforeach
                       </div>
                       <a href="{{ route('obras.show', $obra) }}" class="btn btn-outline-primary btn-sm w-50 mt-3">Ver detalles</a>
