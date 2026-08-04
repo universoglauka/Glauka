@@ -135,13 +135,12 @@ class MercadoPagoController extends Controller
   {
     $paymentId = $request->payment_id;
 
-    return  redirect()->route('profile.index')->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
-
+    return redirect()->route('home')->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
   }
 
   public function pending()
   {
-    return view('profile.index')->with('pending', 'Su pago esta pendiente.');
+    return redirect()->route('home')->with('pending', 'Su pago esta pendiente.');
   }
 
   public function failure()
