@@ -201,15 +201,15 @@
       <div class="final-landing d-flex text-center justify-content-between align-items-center">
         <img src="{{asset('storage/imagenes/GlaukaPatron.jpg')}}" alt="patron de la marca" class=" patronLanding">
 
-        <div class="pt-3">
-          <p>Entra a Glauka para conocer más</p>
+        <div class="logoLanding d-flex justify-content-center  flex-column flex-md-row align-items-center">
+          <div class="d-flex flex-column align-items-center">
+            <p class="pt-3">Entra a Glauka para conocer más</p>
+            <img src="{{asset('storage/imagenes/userIcon/GlaukaIcon.png')}}" alt="logotipo de la marca" class="img-fluid">
+          </div>
+          <div class="pt-3 pb-3">
+            <img src="{{asset('storage/imagenes/qrglauka.png')}}" alt="QR para ir al sitio web de Glauka" class="img-fluid" style="width: 150px; height: 201px;">
+          </div>
         </div>
-
-
-        <div class="logoLanding d-flex justify-content-center ">
-          <img src="{{asset('storage/imagenes/userIcon/GlaukaIcon.png')}}" alt="logotipo de la marca" class="img-fluid">
-        </div>
-
 
         <img src="{{asset('storage/imagenes/GlaukaPatron.jpg')}}" alt="patron de la marca" class="patronLanding">
       </div>
@@ -218,7 +218,7 @@
     </div>
 
     <div class="pt-4 pb-4 bg-morado">
-      <p class="text-white text-center"> Lara Florian y Mayra Yañez</p>
+      <p class="text-white text-center">&copy; Lara Florian y Mayra Yañez</p>
     </div>
 
   </footer>
