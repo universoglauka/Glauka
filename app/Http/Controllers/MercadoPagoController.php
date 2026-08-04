@@ -151,8 +151,13 @@ class MercadoPagoController extends Controller
 
   public function webhook(Request $request)
   {
-    dd($request->all());
-      $paymentId = $request->input('data.id');
+      file_put_contents(
+    storage_path('app/webhook.txt'),
+    json_encode($request->all(), JSON_PRETTY_PRINT) . PHP_EOL,
+    FILE_APPEND
+    );
+    
+    $paymentId = $request->input('data.id');
 
     if (!$paymentId) {
       return response()->json([
@@ -166,7 +171,7 @@ class MercadoPagoController extends Controller
     try{
     $payment = $paymentClient->get($paymentId);
     } catch(\Exception $e) {
-         dd($request->all());
+        
 
         $e->getMessage();
          return response()->json([
