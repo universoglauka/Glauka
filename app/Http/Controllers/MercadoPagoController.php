@@ -151,18 +151,21 @@ class MercadoPagoController extends Controller
 
   public function webhook(Request $request)
   {
-      file_put_contents(
-    storage_path('app/webhook.txt'),
-    json_encode($request->all(), JSON_PRETTY_PRINT) . PHP_EOL,
-    FILE_APPEND
-    );
+    //   file_put_contents(
+    // storage_path('app/webhook.txt'),
+    // json_encode($request->all(), JSON_PRETTY_PRINT) . PHP_EOL,
+    // FILE_APPEND
+    // );
     
     $paymentId = $request->input('data.id');
 
-    if (!$paymentId) {
-      return response()->json([
-        'ok' => false
-      ]);
+    // if (!$paymentId) {
+    //   return response()->json([
+    //     'ok' => false
+    //   ]);
+    // }
+    if(!$paymentId && $request->input('topic') === 'payment') {
+    $paymentId = $request->input('resource');
     }
 
     MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
@@ -179,7 +182,7 @@ class MercadoPagoController extends Controller
     ], 200);
     }
 
-    if ($payment->status !== 'approved') {
+    if ($payment->status == 'failure' ) {
       return response()->json([
         'ignored' => true
       ]);
