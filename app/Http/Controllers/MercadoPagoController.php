@@ -133,7 +133,6 @@ class MercadoPagoController extends Controller
 
   public function success(Request $request)
   {
-    // dd($request->all());
     $paymentId = $request->payment_id;
 
     return  redirect()->route('home')->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
@@ -152,7 +151,7 @@ class MercadoPagoController extends Controller
 
   public function webhook(Request $request)
   {
-    dd($request->all());
+    // dd($request->all());
       $paymentId = $request->input('data.id');
 
     if (!$paymentId) {
@@ -164,7 +163,14 @@ class MercadoPagoController extends Controller
     MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
     $paymentClient = new PaymentClient();
+    try{
     $payment = $paymentClient->get($paymentId);
+    } catch(\Exception $e) {
+        $e->getMessage();
+         return response()->json([
+        'error' => 'Pago no encontrado'
+    ], 200);
+    }
 
     if ($payment->status !== 'approved') {
       return response()->json([
