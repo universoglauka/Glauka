@@ -3,14 +3,16 @@
 @section('content')
 <section class="espacio">
   @if(session('success'))
-  <div
-    x-data="{ show: true }"
-    x-show="show"
-    x-transition
-    x-init="setTimeout(() => show = false, 3000)"
-    class="alert alert-success">
-    {{ session('success') }}
-  </div>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: "Éxito",
+          text: "{{session('success')}}",
+          icon: "success",
+          draggable: true
+        });
+      })
+    </script>
   @endif
   <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner rounded-top-4">
