@@ -18,7 +18,7 @@ class MercadoPagoController extends Controller
     MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
     $client = new PreferenceClient();
-    dd(route('webhook.mp'));
+    
     return $client->create([
       "items" => $items,
       "back_urls" => [
