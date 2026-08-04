@@ -74,7 +74,7 @@ class TicketController extends Controller
           'performance_id'    => $item->performance_id,
           'nombre_obra'       => $item->obra->nombre_obra,
           'es_virtual' => !empty($item->performance->linkVirtual),
-          'nombre_productor'  => $item->obra->nombre_productor,
+          'nombre_productor'  => $item->obra->productor->name_group,
           'fecha_hora_obra'   => $fechaHora,
           'cantidad'          => $item->cantidad,
           'emails_virtuales'  => $item->emails_virtuales,
