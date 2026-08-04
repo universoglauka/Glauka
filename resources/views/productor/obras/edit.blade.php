@@ -21,7 +21,7 @@ $f6 = $funciones->get(5);
         </div>
       </div>
     </div>
-    <h1 class="fs-1">Editar un evento</h1>
+    <h1 class="fs-1">Editar una obra</h1>
   </div>
   <p>Llená todos los espacios para una mejor experiencia para ustedes y los usuarios al encontrar su obra.</p>
 
@@ -39,8 +39,8 @@ $f6 = $funciones->get(5);
     </select>
     @endif
     <div class="mt-5">
-      <fieldset class="p-3 borde rounded-3 position-relative">
-        <h2 class="position-absolute top-0 start-50 translate-middle sec-form borde rounded-5 ">Fechas y
+      <fieldset class="p-3 borde rounded-3 position-relative obra-entradas">
+        <h2 class="burbujaTitulo position-absolute top-0 start-50 translate-middle sec-form borde rounded-5 ">Fechas y
           horario </h2>
         <div class="row mt-3">
           <p>Puedes añadir funciones nuevas a la obra, pero no puedes editar los horarios y fechas de las funciones que ya tenía.</p>
