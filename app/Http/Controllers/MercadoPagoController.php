@@ -133,10 +133,12 @@ class MercadoPagoController extends Controller
 
   public function success(Request $request)
   {
-    dd($request->all());
+    // dd($request->all());
     $paymentId = $request->payment_id;
 
-    return view('home', compact('paymentId'))->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
+    // return view('catalog', compact('paymentId'))->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
+    return  redirect()->route('home')->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
+
   }
 
   public function pending()
