@@ -16,7 +16,6 @@ class CartController extends Controller
     // mostrar el carrito desde la base de datos
     $carrito = Carts::firstOrCreate(['user_id' => Auth::id()]);
     $carrito->load('items.obra', 'items.performance');
-    // $carrito = session('carrito', []);
     return view('cart.index', compact('carrito'));
   }
 
@@ -27,14 +26,8 @@ class CartController extends Controller
     $performanceId = $request->input('performance_id');
     $performance = Performance::findOrFail($performanceId);
 
-    // Aca deberia cambiarlo, en lugar de session que sea directamente a la base de datos
-    // o dejarlo pero que tambien se haga el cambio en la base
-    // $carrito = session('carrito', []);
-
     $cantidad = (int) $request->input('cantidad_entradas', 1);
-    // ------
-
-
+    
     $emails = $request->input('emails_virtuales', []);
 
     $stock = $performance->stock;
@@ -90,38 +83,7 @@ class CartController extends Controller
         'emails_virtuales' => $emails,
       ]);
     }
-    // -------
-
-
-    // $itemKey = "{$obra->id}-{$performance->id}";
-
-    // $stock = $performance->stock;
-    // if ($stock < $cantidad) {
-    //   return redirect()->back()->with('error', "Stock insuficiente. Solo quedan {$stock} entradas para esa función.");
-    // }
-
-    // if (isset($carrito[$itemKey])) {
-    //   $nuevaCantidadTotal = $carrito[$itemKey]['cantidad'] + $cantidad;
-    //   if ($stock < $nuevaCantidadTotal) {
-    //     return redirect()->back()->with('error', "No puedes agregar esa cantidad. Excede el stock disponible ({$stock}).");
-    //   }
-    //   $carrito[$itemKey]['cantidad'] = $nuevaCantidadTotal;
-    // } else {
-    //   $carrito[$itemKey] = [
-    //     'id'             => $itemKey,
-    //     'obra_id'        => $obra->id,
-    //     'performance_id' => $performance->id,
-    //     'nombre'         => $obra->nombre_obra,
-    //     'precio'         => $obra->precio,
-    //     'fecha_hora'     => \Carbon\Carbon::parse($performance->fechaObra)->format('d/m/Y') . " " . \Carbon\Carbon::parse($performance->horaObra)->format('H:i'),
-    //     'imagen'         => $obra->imagen,
-    //     'cantidad'       => $cantidad,
-    //   ];
-    // }
-
-    // mismo, lugar de sesion que sea base
-    // session(['carrito' => $carrito]);
-
+    
     return redirect()->back()->with('success', "¡{$cantidad} entradas para '{$obra->nombre_obra}' añadidas al carrito!");
   }
 
@@ -135,13 +97,7 @@ class CartController extends Controller
     }
 
     $item->delete();
-    // carrito de base de datos
-    // $carrito = session('carrito', []);
-    // if (isset($carrito[$itemKey])) {
-    //   unset($carrito[$itemKey]);
-    //   session(['carrito' => $carrito]);
-    //   return redirect()->route('cart.index')->with('success', 'Entrada eliminada exitosamente.');
-    // }
+  
     return redirect()->route('cart.index')->with('success', 'Entrada eliminada exitosamente.');
   }
 
@@ -161,21 +117,8 @@ class CartController extends Controller
         'cantidad' => $item->cantidad + 1,
         'stock_alert_sent' => false,
       ]);
-      // $item->increment('cantidad');
+     
     }
-
-    // $carrito = session('carrito', []);
-    // if (isset($carrito[$itemKey])) {
-    //   $item = $carrito[$itemKey];
-
-    //   $performance = Performance::find($item['performance_id']);
-
-    //   if ($item['cantidad'] < $performance->stock) {
-    //     $carrito[$itemKey]['cantidad']++;
-    //     session(['carrito' => $carrito]);
-    //   } else {
-    //     return redirect()->route('cart.index')->with('error', 'Alcanzaste el stock disponible.');
-    //   }
 
     return redirect()->route('cart.index');
   }
@@ -193,25 +136,12 @@ class CartController extends Controller
       $item->delete();
     }
 
-    // $carrito = session('carrito', []);
-
-    // if (isset($carrito[$itemKey])) {
-    //   if ($carrito[$itemKey]['cantidad'] > 1) {
-    //     $carrito[$itemKey]['cantidad']--;
-    //   } else {
-    //     unset($carrito[$itemKey]);
-    //   }
-    //   session(['carrito' => $carrito]);
-    // }
     return redirect()->route('cart.index');
   }
 
   // Posiblemente eliminar esta funcion
   public function preference()
   {
-    // $carrito = session('carrito', []);
-    // $carrito = Carts::with('items')->where('user_id', Auth::id())->first();
-
     $carrito = Carts::firstOrCreate(['user_id' => Auth::id()]);
     $carrito->load('items.obra', 'items.performance');
 
@@ -221,11 +151,9 @@ class CartController extends Controller
 
     return view('cart.preference', compact('carrito'));
   }
-  // -------
-
+  
   public function vaciar()
   {
-    // session()->forget('carrito');
     $carrito = Carts::where('user_id', Auth::id())->first();
 
     if ($carrito) {
