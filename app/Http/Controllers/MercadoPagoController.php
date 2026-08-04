@@ -136,7 +136,6 @@ class MercadoPagoController extends Controller
     // dd($request->all());
     $paymentId = $request->payment_id;
 
-    // return view('catalog', compact('paymentId'))->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
     return  redirect()->route('home')->with('success', 'Gracias por su compra. Enviaremos el detalle por email.');
 
   }
@@ -153,6 +152,7 @@ class MercadoPagoController extends Controller
 
   public function webhook(Request $request)
   {
+    Log::info('Webhook recibido', $request->all());
     $paymentId = $request->input('data.id');
 
     if (!$paymentId) {
