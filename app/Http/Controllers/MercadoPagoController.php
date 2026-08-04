@@ -181,6 +181,13 @@ class MercadoPagoController extends Controller
         'ignored' => true
       ]);
     }
+    // ----evitar duplicado--
+    if (Ticket::where(
+        'payment_id',
+        $paymentId
+    )->exists()) {
+        return response()->json(['duplicate' => true]);
+    }
 
     $externalReference = $payment->external_reference;
 
