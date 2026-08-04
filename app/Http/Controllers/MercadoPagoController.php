@@ -151,7 +151,7 @@ class MercadoPagoController extends Controller
 
   public function webhook(Request $request)
   {
-    // dd($request->all());
+    dd($request->all());
       $paymentId = $request->input('data.id');
 
     if (!$paymentId) {
@@ -166,6 +166,8 @@ class MercadoPagoController extends Controller
     try{
     $payment = $paymentClient->get($paymentId);
     } catch(\Exception $e) {
+         dd($request->all());
+
         $e->getMessage();
          return response()->json([
         'error' => 'Pago no encontrado'
