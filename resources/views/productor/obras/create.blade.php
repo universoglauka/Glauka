@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <h1 class="fs-1">Subir un evento</h1>
+    <h1 class="fs-1">Subir una obra</h1>
   </div>
   <p>Llená todos los espacios para una mejor experiencia tanto para ustedes y como para los usuarios que deseen ver esta obra.</p>
 
@@ -28,7 +28,7 @@
     </select>
     @endif
     <div class="mt-5">
-      <fieldset class="p-3 borde rounded-3 position-relative">
+      <fieldset class="p-3 borde rounded-3 position-relative obra-entradas">
         <h2 class="burbujaTitulo position-absolute top-0 start-50 translate-middle sec-form borde rounded-5">Fechas y
           horario </h2>
         <div class="row mt-3">
