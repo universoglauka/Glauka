@@ -388,7 +388,7 @@
                 <div class="col-md-6">
                   <div class="card mb-2 border border-light-subtle bg-light shadow-sm">
                     <div class="card-body d-flex align-items-center justify-content-between flex-wrap gap-3">
-                      <div class="d-flex align-items-center">
+                      <div class="historialNumero d-flex align-items-center">
                         <div class="bg-white p-2 rounded-circle border me-3 text-primary">
                           <i class="bi bi-ticket-perforated fs-4 px-1"></i>
                         </div>
@@ -524,7 +524,7 @@
                       </p>
                       <div class="small text-muted">
                         @foreach($obra->performance as $funcion)
-                        <small><span class="fw-bold"> {{ \Carbon\Carbon::parse($funcion->fechaObra)->format('d/m/Y') }} </span></small>
+                        <small><span class="fw-bold"> | </span>{{ \Carbon\Carbon::parse($funcion->fechaObra)->format('d/m/Y') }} </small>
                         @endforeach
                       </div>
                       <a href="{{ route('obras.show', $obra) }}" class="btn btn-outline-primary btn-sm w-50 mt-3">Ver detalles</a>
