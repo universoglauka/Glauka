@@ -456,27 +456,26 @@ class ObraController extends Controller
     DB::transaction(function () use ($obra, $motivo) {
       $obra->cancelar();
 
-      //---Hacer reembolso
-      $tickets = Ticket::with('ticketdetalles')
-        ->whereHas('ticketdetalles', function ($query) use ($obra) {
-          $query->where('obra_id', $obra->id);
-        })->get();
-
-      $refundController = app(RefundController::class);
-
-      foreach ($tickets as $ticket) {
-        try {
-          $refundController->processRefundObra($ticket, $obra->id);
-        } catch (\Exception $e) {
-          report($e);
-        }
-      }
-      // 
-
       $this->notificarUsuariosCompradoresCancelacion($obra);
 
       $this->notificarProductorCancelacion($obra, $motivo);
     });
+    //---Hacer reembolso
+    $tickets = Ticket::with('ticketdetalles')
+    ->whereHas('ticketdetalles', function ($query) use ($obra) {
+      $query->where('obra_id', $obra->id);
+    })->get();
+    
+    $refundController = app(RefundController::class);
+    
+    foreach ($tickets as $ticket) {
+    try {
+      $refundController->processRefundObra($ticket, $obra->id);
+    } catch (\Exception $e) {
+      report($e);
+    }
+    }
+    // 
 
     return back()->with(
       'success',
