@@ -21,11 +21,33 @@ class RefundController extends Controller
     // Hacer reembolso total por MercadoPago
     public function refundTicket(Ticket $ticket, ?int $performanceId = null,  ?int $obraId = null)
     {
+        if(!ticket->payment_id) {
+            throw new \Exception("El ticket no posee payment_id.";
+        }
+        if($ticket->estado_pago !== 'aprobado') {
+            throw new \Exception("El pago todavía no está aprobado.";
+        }
+        
         MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
         $client = new PaymentRefundClient();
 
-        $refund = $client->refund($ticket->payment_id, $ticket->total);
+        try {
+            $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+            throw new \Exception(
+                json_encode(
+                    $e->getApiResponse()->getContent(),
+                    JSON_PRETTY_PRINT
+                )
+            );
+        }
+
+        if($refund->status != 'approved') {
+            throw new \Exception(
+                "Mercado Pago rechazó el reembolso."
+            );
+        }
 
         $this->guardarResultado($ticket, $refund, $ticket->total, $performanceId, $obraId);
 
@@ -35,12 +57,36 @@ class RefundController extends Controller
     // Hacer reembolso parcial por MercadoPago
     public function refundPartial(Ticket $ticket, float $amount,  ?int $performanceId = null,  ?int $obraId = null)
     {
+        if(!ticket->payment_id) {
+            throw new \Exception("El ticket no posee payment_id.";
+        }
+        if($ticket->estado_pago !== 'aprobado') {
+            throw new \Exception("El pago todavía no está aprobado.";
+        }
+        if(!amount <= 0){
+            return;
+        }
         MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
         $client = new PaymentRefundClient();
 
-        $refund = $client->refund($ticket->payment_id, $amount);
+        try {
+            $refund = $client->refund($ticket->payment_id, $amount);
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+            throw new \Exception(
+                json_encode(
+                    $e->getApiResponse()->getContent(),
+                    JSON_PRETTY_PRINT
+                )
+            );
+        }
 
+        if($refund->status != 'approved') {
+            throw new \Exception(
+                "Mercado Pago rechazó el reembolso."
+                );
+        }
+        
         $this->guardarResultado($ticket, $refund, $amount, $performanceId, $obraId);
 
         return $refund;
