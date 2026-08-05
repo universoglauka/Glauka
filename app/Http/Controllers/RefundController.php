@@ -27,7 +27,7 @@ class RefundController extends Controller
         if($ticket->estado_pago !== 'aprobado') {
             throw new \Exception("El pago todavía no está aprobado.");
         }
-        
+        dd(env('MERCADO_PAGO_ACCESS_TOKEN'));
         MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
         $client = new PaymentRefundClient();
