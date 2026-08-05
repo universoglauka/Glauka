@@ -32,18 +32,21 @@ class RefundController extends Controller
         $client = new PaymentRefundClient();
 
         try {
-        $paymentClient = new PaymentClient();
-
-        $payment = $paymentClient->get(
-            $ticket->payment_id
-        );
-        
-        dd($payment);
+            // $paymentClient = new PaymentClient();
+    
+            // $payment = $paymentClient->get(
+            //     $ticket->payment_id
+            // );
+            
+            // dd($payment);
             
             $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
+            dd($refund);
         } catch (\Throwable $e) {
-                 dd( get_class($e),
-                    $e->getMessage());
+                dd(
+                    $e->getStatusCode(),
+                    $e->getApiResponse()->getContent()
+                );
             
         }
 
