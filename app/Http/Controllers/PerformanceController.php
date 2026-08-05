@@ -51,7 +51,7 @@ class PerformanceController extends Controller
       try {
         $refundController->processRefund($ticket, $performance->id);
       } catch (\Exception $e) {
-         dd($e->getMessage());
+         $e->getMessage();
       }
     }
     // 
