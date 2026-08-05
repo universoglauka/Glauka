@@ -36,6 +36,10 @@ class PerformanceController extends Controller
       $performance->cancel();
 
       $performance->obra->actualizarEstadoCancelacion();
+        
+      $this->notificarCompradoresCancelacionDeFuncion($performance);
+
+      $this->notificarProductorCancelacionDeFuncion($performance, $motivo);
     });
 
 
@@ -56,9 +60,6 @@ class PerformanceController extends Controller
     }
     // 
 
-    $this->notificarCompradoresCancelacionDeFuncion($performance);
-
-    $this->notificarProductorCancelacionDeFuncion($performance, $motivo);
 
     return back()->with(
       'success',
