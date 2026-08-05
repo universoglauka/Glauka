@@ -30,16 +30,9 @@ class RefundController extends Controller
         }
         MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
         $client = new PaymentRefundClient();
-
-        try {
-            $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
-        } catch (\Throwable $e) {
-                    $e->getStatusCode(),
-                    $e->getApiResponse()->getContent()
-            
-            
-        }
-
+    
+        $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
+       
         if($refund->status != 'approved') {
             throw new \Exception(
                 "Mercado Pago rechazó el reembolso."
