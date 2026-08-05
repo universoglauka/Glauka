@@ -101,7 +101,7 @@ class AnnouncementController extends Controller
     $announcement->delete();
 
     return redirect()
-      ->route('profile')
+      ->back()
       ->with(
         'success',
         'Anuncio eliminado correctamente.'
