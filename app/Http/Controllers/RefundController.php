@@ -35,9 +35,8 @@ class RefundController extends Controller
         try {
             $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
         } catch (\MercadoPago\Exceptions\MPApiException $e) {
-            throw new \Exception(
                  dd($e->getApiResponse()->getContent());
-            );
+            
         }
 
         if($refund->status != 'approved') {
