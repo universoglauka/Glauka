@@ -52,8 +52,13 @@ $f6 = $funciones->get(5);
               <input type="date" name="fechaObra1" id="fechaObra1" class="form-control"
                 value="{{ old('fechaObra1', $f1 ? \Carbon\Carbon::parse($f1->fechaObra)->format('Y-m-d') : '') }}"
                 min="{{ now()->format('Y-m-d') }}"
+                @if(auth()->user()->plan_id === 4 || auth()->user()->plan_id === 1)
+                max="{{ now()->addDays(21)->format('Y-m-d') }}"
+                @else
                 max="{{ now()->addDays(7)->format('Y-m-d') }}"
-                @if(auth()->user()->rol !== 'admin' && $f1) readonly @endif>
+                @endif
+                @if(auth()->user()->rol !== 'admin' && $f1) readonly @endif
+                >
               @error('fechaObra1')
               <div class="alert text-danger">{{$message}}</div>
               @enderror
@@ -115,8 +120,14 @@ $f6 = $funciones->get(5);
               <label for="fechaObra2" class="mb-2">Día que se realiza</label>
               <input type="date" name="fechaObra2" id="fechaObra2" class="form-control" value="{{ old('fechaObra2', $f2 ? \Carbon\Carbon::parse($f2->fechaObra)->format('Y-m-d') : '') }}"
                 min="{{ now()->format('Y-m-d') }}"
+                @if(auth()->user()->plan_id === 4 || auth()->user()->plan_id === 1)
+                max="{{ now()->addDays(21)->format('Y-m-d') }}"
+                @else
                 max="{{ now()->addDays(7)->format('Y-m-d') }}"
-                @if(auth()->user()->rol !== 'admin' && $f2) readonly @endif>
+                @endif
+                  
+                @if(auth()->user()->rol !== 'admin' && $f2) readonly @endif
+               >
               @error('fechaObra2')
               <div class="alert text-danger">{{$message}}</div>
               @enderror
@@ -177,8 +188,13 @@ $f6 = $funciones->get(5);
               <label for="fechaObra3" class="mb-2">Día que se realiza</label>
               <input type="date" name="fechaObra3" id="fechaObra3" class="form-control" value="{{ old('fechaObra3', $f3 ? \Carbon\Carbon::parse($f3->fechaObra)->format('Y-m-d') : '') }}"
                 min="{{ now()->format('Y-m-d') }}"
+                @if(auth()->user()->plan_id === 4 || auth()->user()->plan_id === 1)
+                max="{{ now()->addDays(21)->format('Y-m-d') }}"
+                @else
                 max="{{ now()->addDays(7)->format('Y-m-d') }}"
-                @if(auth()->user()->rol !== 'admin' && $f3) readonly @endif>
+                @endif
+                @if(auth()->user()->rol !== 'admin' && $f3) readonly @endif
+               >
               @error('fechaObra3')
               <div class="alert text-danger">{{$message}}</div>
               @enderror
@@ -240,6 +256,7 @@ $f6 = $funciones->get(5);
               <label for="fechaObra4" class="mb-2">Día que se realiza</label>
               <input type="date" name="fechaObra4" id="fechaObra4" class="form-control" value="{{ old('fechaObra4', $f4 ? \Carbon\Carbon::parse($f4->fechaObra)->format('Y-m-d') : '') }}"
                 min="{{ now()->format('Y-m-d') }}"
+                max="{{ now()->addDays(21)->format('Y-m-d') }}"
                 @if(auth()->user()->rol !== 'admin' && $f4) readonly @endif
               >
               @error('fechaObra4')
@@ -300,6 +317,7 @@ $f6 = $funciones->get(5);
               <label for="fechaObra5" class="mb-2">Día que se realiza</label>
               <input type="date" name="fechaObra5" id="fechaObra5" class="form-control" value="{{ old('fechaObra5', $f5 ? \Carbon\Carbon::parse($f5->fechaObra)->format('Y-m-d') : '') }}"
                 min="{{ now()->format('Y-m-d') }}"
+                max="{{ now()->addDays(21)->format('Y-m-d') }}"
                 @if(auth()->user()->rol !== 'admin' && $f5) readonly @endif>
               @error('fechaObra5')
               <div class="alert text-danger px-0 py-3">{{$message}}</div>
@@ -362,6 +380,7 @@ $f6 = $funciones->get(5);
               <label for="fechaObra6" class="mb-2">Día que se realiza</label>
               <input type="date" name="fechaObra6" id="fechaObra6" class="form-control" value="{{ old('fechaObra6', $f6 ? \Carbon\Carbon::parse($f6->fechaObra)->format('Y-m-d') : '') }}"
                 min="{{ now()->format('Y-m-d') }}"
+                max="{{ now()->addDays(21)->format('Y-m-d') }}"
                 @if(auth()->user()->rol !== 'admin' && $f6) readonly @endif>
               @error('fechaObra6')
               <div class="alert text-danger px-0 py-3">{{$message}}</div>
