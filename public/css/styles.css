@@ -968,6 +968,12 @@ Datos de la obra
   overflow-y: auto;
 }
 
+@media (min-width: 1280px) and (max-width: 1535px) {
+    .historialNumero {
+        width: 100% !important;
+    }
+}
+
 .perfilInfo::-webkit-scrollbar {
   width: 6px;
 }
