@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Payment\PaymentRefundClient;
+use MercadoPago\Client\Payment\PaymentClient;
 
 
 class RefundController extends Controller
@@ -28,18 +29,21 @@ class RefundController extends Controller
             throw new \Exception("El pago todavía no está aprobado.");
         }
         MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
-
         $client = new PaymentRefundClient();
 
         try {
-            dd([
-                'payment_id' => $payment->id,
-                'status' => $payment->status,
-                'collector_id' => $payment->collector_id,
-            ]);
+        $paymentClient = new PaymentClient();
+
+        $payment = $paymentClient->get(
+            $ticket->payment_id
+        );
+        
+        dd($payment);
+            
             $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
-        } catch (\MercadoPago\Exceptions\MPApiException $e) {
-                 dd($e->getApiResponse()->getContent());
+        } catch (\Throwable $e) {
+                 dd( get_class($e),
+                    $e->getMessage());
             
         }
 
