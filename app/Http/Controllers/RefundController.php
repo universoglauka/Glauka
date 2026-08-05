@@ -27,12 +27,16 @@ class RefundController extends Controller
         if($ticket->estado_pago !== 'aprobado') {
             throw new \Exception("El pago todavía no está aprobado.");
         }
-        dd(env('MERCADO_PAGO_ACCESS_TOKEN'));
         MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
 
         $client = new PaymentRefundClient();
 
         try {
+            dd([
+                'payment_id' => $payment->id,
+                'status' => $payment->status,
+                'collector_id' => $payment->collector_id,
+            ]);
             $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
         } catch (\MercadoPago\Exceptions\MPApiException $e) {
                  dd($e->getApiResponse()->getContent());
