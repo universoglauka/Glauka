@@ -5,7 +5,7 @@
     </div>
 
     <div class="card-body">
-      <div class="table-responsive d-flex align-items-center justify-content-center">
+      <div class="table-responsive d-flex align-items-center">
         <table class="table table-hover align-middle border-1">
           <thead>
             <tr>
