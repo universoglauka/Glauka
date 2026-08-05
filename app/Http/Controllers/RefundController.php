@@ -34,10 +34,9 @@ class RefundController extends Controller
         try {
             $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
         } catch (\Throwable $e) {
-                dd(
                     $e->getStatusCode(),
                     $e->getApiResponse()->getContent()
-                );
+            
             
         }
 
