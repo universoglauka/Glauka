@@ -30,8 +30,11 @@ class RefundController extends Controller
         }
         MercadoPagoConfig::setAccessToken(env('MERCADO_PAGO_ACCESS_TOKEN'));
         $client = new PaymentRefundClient();
-    
-        $refund = $client->refund($ticket->payment_id, (float) $ticket->total);
+        try {
+            $refund = $client->refund($ticket->payment_id, (float) $ticket->total); 
+        } catch (\MercadoPago\Exceptions\MPApiException $e) { 
+            dd($e->getApiResponse()->getContent()); 
+        }
        
         if($refund->status != 'approved') {
             throw new \Exception(
